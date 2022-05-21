@@ -1,7 +1,7 @@
 // Copyright 2022 UNN-IASR
 #include <iostream>
 #include <fstream>
-#include"include.h"
+#include"textgen.h"
 
 int main() {
     string line;
