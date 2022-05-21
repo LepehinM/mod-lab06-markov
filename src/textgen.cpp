@@ -13,11 +13,10 @@ Gen::Gen(string arr, int val1, int val2) {
             count++;
             words.push_back("");
             words[count] = words[count] + arr[i];
-        }
-        else if (state == 1 && (arr[i] == ' ' || arr[i] == '\r' || arr[i] == '\n'))
-        { state = 0; }
-        else if (state == 1 && arr[i] != ' ' && arr[i] != '\r' && arr[i] != '\n')
-        { words[count] = words[count] + arr[i]; }
+        } else if (state == 1 && (arr[i] == ' ' || arr[i] == '\r' || arr[i] == '\n')) {
+            state = 0; }
+        else if (state == 1 && arr[i] != ' ' && arr[i] != '\r' && arr[i] != '\n') {
+            words[count] = words[count] + arr[i]; }
         i++;
     }
     for (int i = 0; i < words.size() - NPREF + 1; i++) {
@@ -58,7 +57,7 @@ string Gen::getText() {
     return answer;
 }
 
-Gen::Gen(map<prefix, vector<string> > val, vector<string> word, int val1, int val2) {
+Gen::Gen(map<prefix, vector<string> > val, vector<string> word, int, int) {
     NPREF = val1;
     MAXGEN = val2;
     statetab = val;
