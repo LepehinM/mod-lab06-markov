@@ -1,5 +1,5 @@
 // Copyright 2022 UNN-IASR
-#include"textgen.h"
+#include"include.h"
 
 Gen::Gen(string arr, int val1, int val2) {
     srand(4561);

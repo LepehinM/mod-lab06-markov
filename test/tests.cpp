@@ -5,7 +5,7 @@ TEST(task1, test1) {
   Gen gn = Gen("123 234 567 1234", 3, 1000);
   string result = gn.getText();
   char* ch = new char[result.size()+1];
-  strcpy(ch,result.c_str());
+  snprintf(ch, result.c_str());
   ASSERT_STREQ("123 234 567 1234 ", ch);
 }
 TEST(task1, test2) {
@@ -38,7 +38,7 @@ TEST(task1, test4) {
 TEST(task1, test5) {
   Gen gn = Gen("aa bb cc dd aa bb", 2, 20);
   string result = gn.getText();
-  char* ch=new char[result.size()+1];
+  char* ch = new char[result.size()+1];
   snprintf(ch, result.c_str());
   ASSERT_STREQ("aa bb cc dd aa bb cc ", ch);
 }
