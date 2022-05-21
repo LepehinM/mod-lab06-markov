@@ -15,8 +15,7 @@ Gen::Gen(string arr, int val1, int val2) {
             words[count] = words[count] + arr[i];
 } else if (state == 1 && (arr[i] == ' ' || arr[i] == '\r' || arr[i] == '\n')) {
             state = 0;
-} else if (state == 1 && arr[i] != ' ' && arr[i] != '\r' && arr[i] != '\n') 
-{ else if (state == 1 && arr[i] != ' ' && arr[i] != '\r' && arr[i] != '\n') {
+} else if (state == 1 && arr[i] != ' ' && arr[i] != '\r' && arr[i] != '\n') {
             words[count] = words[count] + arr[i]; }
         i++;
     }
