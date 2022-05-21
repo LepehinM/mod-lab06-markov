@@ -1,44 +1,65 @@
 // Copyright 2021 GHA Test Team
 #include <gtest/gtest.h>
+#include <time.h>
+#include <stdexcept>
+#include <iostream>
+#include <string>
 #include "textgen.h"
-TEST(task1, test1) {
-  Gen gn = Gen("123 234 567 1234", 3, 1000);
-  string result = gn.getText();
-  char* ch = new char[result.size()+1];
-  snprintf(ch, result.c_str());
-  ASSERT_STREQ("123 234 567 1234 ", ch);
+
+TEST(test1, prefixSize) {
+    TextGenerator g = TextGenerator("test1.txt", "", 3, 1000);
+    g.readFromFile();
+    ASSERT_EQ(g.start.size(), 3);
 }
-TEST(task1, test2) {
-  Gen gn = Gen("123 234", 1, 1000);
-  string result = gn.getText();
-  char* ch = new char[result.size()+1];
-  snprintf(ch, result.c_str());
-  ASSERT_STREQ("123 234 ", ch);
+
+TEST(test2, recordFormation) {
+    TextGenerator g = TextGenerator("test2.txt", "", 2, 1000);
+    g.readFromFile();
+    prefix expected;
+    expected.push_back("Это");
+    expected.push_back("второй");
+    table::iterator r = g.stateTab.find(expected);
+    if (r != g.stateTab.end()) {
+        ASSERT_EQ(r->second[0], "тест");
+    } else {
+        FAIL();
+    }
 }
-TEST(task1, test3) {
-  map<deque<string>, vector<string> > str;
-  str[{"123", "567"}].push_back("234");
-  Gen gn = Gen(str, { "123", "567", "234" }, 2, 1000);
-  string result = gn.getText();
-  char* ch = new char[result.size()+1];
-  snprintf(ch, result.c_str());
-  ASSERT_STREQ("123 567 234 ", ch);
+
+TEST(test3, wordChoice) {
+    TextGenerator g = TextGenerator("test3.txt", "", 2, 1000);
+    g.readFromFile();
+    prefix expected;
+    expected.push_back("я");
+    expected.push_back("полюбил");
+    std::string nextStr = g.selectNewStr(expected);
+    ASSERT_EQ(nextStr, "программирование");
 }
-TEST(task1, test4) {
-  map<deque<string>, vector<string> > str;
-  str[{"123", "567"}].push_back("234");
-  str[{"123", "567"}].push_back("000");
-  str[{"123", "567"}].push_back("888");
-  Gen gn = Gen(str, { "123", "567", "234", "000", "888" }, 2, 1000);
-  string result = gn.getText();
-  char* ch = new char[result.size()+1];
-  snprintf(ch, result.c_str());
-  ASSERT_STREQ("123 567 234 ", ch);
+
+TEST(test4, multipleChoice) {
+    TextGenerator g = TextGenerator("test4.txt", "", 2, 1000);
+    g.readFromFile();
+    prefix expected;
+    expected.push_back("с");
+    expected.push_back("ходу");
+    std::string nextStr = g.selectNewStr(expected);
+    ASSERT_TRUE((nextStr == "подоспевшие") || (nextStr == "с"));
 }
-TEST(task1, test5) {
-  Gen gn = Gen("aa bb cc dd aa bb", 2, 20);
-  string result = gn.getText();
-  char* ch = new char[result.size()+1];
-  snprintf(ch, result.c_str());
-  ASSERT_STREQ("aa bb cc dd aa bb cc ", ch);
+
+TEST(test5, dimensionalCheck) {
+    TextGenerator g = TextGenerator(
+        "test5.txt", "resultTest5.txt", 2, 1000);
+    g.generate();
+    std::ifstream in("resultTest5.txt");
+    std::string str;
+    int count = 0;
+    if (in.is_open()) {
+        while (in >> str) {
+            count++;
+        }
+    } else {
+        FAIL();
+    }
+    in.close();
+    ASSERT_EQ(count, 79);
 }

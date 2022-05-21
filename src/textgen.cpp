@@ -1,88 +1,70 @@
 // Copyright 2022 UNN-IASR
-#include"textgen.h"
-#include <string>
-#include <deque>
-#include <vector>
-#include <map>
+#include "textgen.h"
 
-using std::vector;
-using std::string;
-using std::degue;
-using std::map;
+TextGenerator::TextGenerator(std::string in, std::string out,
+    int sPref, int sText) {
+    NPREF = sPref;
+    MAXGEN = sText;
+    fileIn = in;
+    fileOut = out;
+}
 
-Gen::Gen(string arr, int v1, int v2) {
-    srand(4561);
-    NPREF = v1;
-    MAXGEN = v2;
-    data = arr;
-    int i = 0, state = 0, count = -1;
-    while (arr[i] != '\0') {
-        if (state == 0 && arr[i] != ' ' && arr[i] != '\r' && arr[i] != '\n') {
-            state = 1;
-            count++;
-            words.push_back("");
-            words[count] = words[count] + arr[i];
-} else if (state == 1 && (arr[i] == ' ' || arr[i] == '\r' || arr[i] == '\n')) {
-            state = 0;
-} else if (state == 1 && arr[i] != ' ' && arr[i] != '\r' && arr[i] != '\n') {
-            words[count] = words[count] + arr[i]; }
-        i++;
+void TextGenerator::readFromFile() {
+    std::ifstream in(fileIn);
+    std::string str;
+    prefix next;
+    for (int i = 0; i < NPREF; i++) {
+        in >> str;
+        next.push_back(str);
     }
-    for (int i = 0; i < words.size() - NPREF + 1; i++) {
-        prefix prf;
-        for (int j = 0; j < NPREF; j++)
-            prf.push_back(words[i + j]);
-        if (i + NPREF < words.size()) statetab[prf].push_back(words[i + NPREF]);
-        else
-        statetab[prf].push_back("END_OF_FILE");
+    start = next;
+    while (in >> str) {
+        stateTab[next].push_back(str);
+        next.pop_front();
+        next.push_back(str);
+    }
+    in.close();
+}
+
+std::string TextGenerator::selectNewStr(prefix currentPref) {
+    table::iterator it = stateTab.find(currentPref);
+    if (it != stateTab.end()) {
+        return it->second[rand() % (it->second).size()];
+    } else {
+        return "";
     }
 }
 
-
-string Gen::getText() {
-    using std::vector;
-    using std::string;
-    using std::degue;
-    using std::map;
-    prefix str;
-    for (int i = 0; i < NPREF; i++) str.push_back(words[i]);
-    string answer = "";
-    int count = 1;
-    while (answer.size() < MAXGEN) {
-        if (answer.size() == 0) {
-            for (int i = 0; i < NPREF; i++)
-                answer = answer + str[i] + ' ';
-        }
-        int val;
-        if (statetab[str].size() == 1 && statetab[str][0] == "END_OF_FILE") {
-        break; }
-        if (statetab[str].size() == 0) break;
-        val = rand_r() % statetab[str].size();
-        if (statetab[str][statetab[str].size() - 1] == "END_OF_FILE") {
-        val = rand_r() % (statetab[str].size() - 1); }
-        answer = answer + statetab[str][val] + ' ';
-        if (count * 100 - answer.size() < 0) {
-            count++;
-            answer = answer + '\n';
-        }
-        if (count * 100 - answer.size() > 100) {
-            count++;
-            answer = answer + '\n';
-        }
-        string tmp = statetab[str][val];
-        for (int i = 0; i < NPREF - 1; i++) str[i] = str[i + 1];
-        str[NPREF - 1] = tmp;
+void TextGenerator::writeToFile() {
+    std::ofstream out(fileOut);
+    std::vector<std::string> resultOfGeneration = formText();
+    for (int i = 0; i < resultOfGeneration.size(); i++) {
+        out << resultOfGeneration[i] << " ";
     }
-    return answer;
 }
 
-Gen::Gen(map<prefix, vector<string> >, vector<string>, int v1, int v2) {
-    using std::vector;
-    using std::string;
-    using std::degue;
-    using std::map;
-    NPREF = v1;
-    MAXGEN = v2;
-    statetab = val;
-    words = word;
+std::vector<std::string> TextGenerator::formText() {
+    std::vector<std::string> resultOfGeneration;
+    for (int i = 0; i < NPREF; i++) {
+        resultOfGeneration.push_back(start[i]);
+    }
+    prefix next = start;
+    std::string str;
+    srand(time(0));
+    for (int i = 0; i < MAXGEN; i++) {
+        std::string nextStr = selectNewStr(next);
+        if (nextStr != "") {
+            resultOfGeneration.push_back(nextStr);
+            next.pop_front();
+            next.push_back(nextStr);
+        } else {
+            break;
+        }
+    }
+    return resultOfGeneration;
+}
+
+void TextGenerator::generate() {
+    readFromFile();
+    writeToFile();
 }

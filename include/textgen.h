@@ -9,21 +9,23 @@
 #include <sstream>
 #include <fstream>
 #include <random>
-using std::vector;
-using std::string;
-using std::degue;
-using std::map;
 
-class Gen {
+typedef std::deque<std::string> prefix;
+typedef std::map<prefix, std::vector<std::string>> table;
+
+class TextGenerator {
  public:
-    typedef deque<string> prefix;
-    map<prefix, vector<string> > statetab;
     int NPREF;
     int MAXGEN;
-    Gen(string arr, int val1, int val2);
-    string getText();
-    Gen(map<prefix, vector<string> > val, vector<string> words, int v1, int v2);
-    string data;
-    vector<string> words;
-    
+    prefix start;
+    table stateTab;
+    std::string fileIn;
+    std::string fileOut;
+    TextGenerator(std::string, std::string, int, int);
+    void generate();
+    void readFromFile();
+    void writeToFile();
+    std::string selectNewStr(prefix);
+    std::vector<std::string> formText();
 };
+
