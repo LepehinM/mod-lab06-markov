@@ -19,5 +19,5 @@ class Gen {
  public:
     Gen(string arr, int val1, int val2);
     string getText();
-    Gen(map<prefix, vector<string> > val, vector<string> words, int val1, int val2);
+    Gen(map<prefix, vector<string> > val, vector<string> words, int, int);
 };
