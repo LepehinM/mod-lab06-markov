@@ -22,9 +22,11 @@ else if (state == 1 && arr[i] != ' ' && arr[i] != '\r' && arr[i] != '\n') {
     }
     for (int i = 0; i < words.size() - NPREF + 1; i++) {
         prefix prf;
-        for (int j = 0; j < NPREF; j++) prf.push_back(words[i + j]);
+        for (int j = 0; j < NPREF; j++)
+            prf.push_back(words[i + j]);
         if (i + NPREF < words.size()) statetab[prf].push_back(words[i + NPREF]);
-        else statetab[prf].push_back("END_OF_FILE");
+        else 
+        statetab[prf].push_back("END_OF_FILE");
     }
 }
 
@@ -51,8 +53,8 @@ string Gen::getText() {
             count++;
             answer = answer + '\n';
         }
-		if (count * 100 - answer.size() > 100) {
-			count++;
+        if (count * 100 - answer.size() > 100) {
+            count++;
             answer = answer + '\n';
         }
         string tmp = statetab[str][val];
