@@ -1,10 +1,14 @@
 // Copyright 2022 UNN-IASR
 #include"textgen.h"
-
-Gen::Gen(std::string arr, int val1, int val2) {
+#include <string>
+#include <deque>
+#include <vector>
+#include <map>
+using namespace std;
+Gen::Gen(string arr, int v1, int v2) {
     srand(4561);
-    NPREF = val1;
-    MAXGEN = val2;
+    NPREF = v1;
+    MAXGEN = v2;
     data = arr;
     int i = 0, state = 0, count = -1;
     while (arr[i] != '\0') {
@@ -33,7 +37,7 @@ Gen::Gen(std::string arr, int val1, int val2) {
 string Gen::getText() {
     prefix str;
     for (int i = 0; i < NPREF; i++) str.push_back(words[i]);
-    std::string answer = "";
+    string answer = "";
     int count = 1;
     while (answer.size() < MAXGEN) {
         if (answer.size() == 0) {
@@ -56,16 +60,16 @@ string Gen::getText() {
             count++;
             answer = answer + '\n';
         }
-        std::string tmp = statetab[str][val];
+        string tmp = statetab[str][val];
         for (int i = 0; i < NPREF - 1; i++) str[i] = str[i + 1];
         str[NPREF - 1] = tmp;
     }
     return answer;
 }
 
-Gen::Gen(map<prefix, vector<std::string> > val, vector<std::string> word, int, int) {
-    NPREF = val1;
-    MAXGEN = val2;
+Gen::Gen(map<prefix, vector<string> >, vector<string>, int v1, int v2) {
+    NPREF = v1;
+    MAXGEN = v2;
     statetab = val;
     words = word;
 }
