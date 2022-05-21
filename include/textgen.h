@@ -16,13 +16,14 @@ using std::map;
 
 class Gen {
  public:
+    typedef deque<string> prefix;
+    map<prefix, vector<string> > statetab;
+    int NPREF;
+    int MAXGEN;
     Gen(string arr, int val1, int val2);
     string getText();
     Gen(map<prefix, vector<string> > val, vector<string> words, int v1, int v2);
     string data;
     vector<string> words;
-    typedef deque<string> prefix;
-    map<prefix, vector<string> > statetab;
-    int NPREF;
-    int MAXGEN;
+    
 };
