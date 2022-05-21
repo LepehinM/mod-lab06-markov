@@ -1,17 +1,15 @@
+// Copyright 2022 UNN-IASR
 #include <iostream>
 #include <fstream>
 #include"textgen.h"
 
 using namespace std;
-int main()
-{
+int main() {
     string line;
-    string text="";
+    string text = "";
     ifstream in("tst.txt"); 
-    if (in.is_open())
-    {
-        while (getline(in, line))
-        {
+    if (in.is_open()) {
+        while (getline(in, line)) {
             text = text + line + ' ';
         }
     }
@@ -20,8 +18,7 @@ int main()
     string answer = gn.getText();
     ofstream out;          
     out.open("answer.txt"); 
-    if (out.is_open())
-    {
+    if (out.is_open()) {
         out << answer;
     }
     out.close();
