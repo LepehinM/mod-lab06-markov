@@ -9,7 +9,7 @@
 #include <sstream>
 #include <fstream>
 #include <random>
-INCLUDE_TEXTGEN_H_
+#INCLUDE_TEXTGEN_H_
 
 class Gen {
 using namespace std;
