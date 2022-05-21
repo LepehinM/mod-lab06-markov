@@ -3,7 +3,6 @@
 #include <fstream>
 #include"textgen.h"
 
-using namespace std;
 int main() {
     string line;
     string text = "";
