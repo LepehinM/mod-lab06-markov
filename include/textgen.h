@@ -12,7 +12,10 @@
 #INCLUDE_TEXTGEN_H_
 
 class Gen {
-using namespace std;
+using std::vector;
+using std::string;
+using std::degue;
+using std::map;
  private:
     string data;
     vector<string> words;

@@ -6,7 +6,10 @@
 #include <map>
 
 Gen::Gen(string arr, int v1, int v2) {
-    using namespace std;
+    using std::vector;
+    using std::string;
+    using std::degue;
+    using std::map;
     srand(4561);
     NPREF = v1;
     MAXGEN = v2;
@@ -36,7 +39,10 @@ Gen::Gen(string arr, int v1, int v2) {
 
 
 string Gen::getText() {
-    using namespace std;
+    using std::vector;
+    using std::string;
+    using std::degue;
+    using std::map;
     prefix str;
     for (int i = 0; i < NPREF; i++) str.push_back(words[i]);
     string answer = "";
@@ -70,7 +76,10 @@ string Gen::getText() {
 }
 
 Gen::Gen(map<prefix, vector<string> >, vector<string>, int v1, int v2) {
-    using namespace std;
+    using std::vector;
+    using std::string;
+    using std::degue;
+    using std::map;
     NPREF = v1;
     MAXGEN = v2;
     statetab = val;
