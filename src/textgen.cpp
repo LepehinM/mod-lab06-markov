@@ -68,4 +68,7 @@ void TextGenerator::generate() {
     readFromFile();
     writeToFile();
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> fc414ff8fbfbdedf4c06714e8eecb049b39b97ed
