@@ -14,10 +14,10 @@ Gen::Gen(string arr, int val1, int val2) {
             words.push_back("");
             words[count] = words[count] + arr[i];
         }
-        else if (state == 1 && (arr[i] == ' ' || arr[i] == '\r' || arr[i] == '\n')) {
-            state = 0; }
-        else if (state == 1 && arr[i] != ' ' && arr[i] != '\r' && arr[i] != '\n') {
-            words[count] = words[count] + arr[i]; }
+        else if (state == 1 && (arr[i] == ' ' || arr[i] == '\r' || arr[i] == '\n'))
+        { state = 0; }
+        else if (state == 1 && arr[i] != ' ' && arr[i] != '\r' && arr[i] != '\n')
+        { words[count] = words[count] + arr[i]; }
         i++;
     }
     for (int i = 0; i < words.size() - NPREF + 1; i++) {
@@ -40,7 +40,8 @@ string Gen::getText() {
                 answer = answer + str[i] + ' ';
         }
         int val;
-        if (statetab[str].size() == 1 && statetab[str][0] == "END_OF_FILE") break;
+        if (statetab[str].size() == 1 && statetab[str][0] == "END_OF_FILE") {
+        break; }
         if (statetab[str].size() == 0) break;
         val = rand_r() % statetab[str].size();
         if (statetab[str][statetab[str].size() - 1] == "END_OF_FILE") {
