@@ -9,14 +9,12 @@
 #include <sstream>
 #include <fstream>
 #include <random>
-#include "textgen.cpp"
 using std::vector;
 using std::string;
 using std::degue;
 using std::map;
 
 class Gen {
-
  private:
     string data;
     vector<string> words;
