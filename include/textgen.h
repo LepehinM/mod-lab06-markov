@@ -9,8 +9,7 @@
 #include <sstream>
 #include <fstream>
 #include <random>
-typedef std::deque<std::string> prefix;
-typedef std::map<prefix, std::vector<std::string>> val;
+
 class Gen {
  private:
     std::string data;
