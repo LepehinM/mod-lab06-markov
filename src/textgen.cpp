@@ -4,7 +4,7 @@
 #include <deque>
 #include <vector>
 #include <map>
-#include "textgen.h"
+
 using std::vector;
 using std::string;
 using std::degue;
