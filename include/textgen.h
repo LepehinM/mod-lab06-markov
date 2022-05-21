@@ -9,7 +9,7 @@
 #include <sstream>
 #include <fstream>
 #include <random>
-#INCLUDE_TEXTGEN_H_
+#include "textgen.cpp"
 using std::vector;
 using std::string;
 using std::degue;
