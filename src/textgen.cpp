@@ -4,12 +4,13 @@
 #include <deque>
 #include <vector>
 #include <map>
+using std::vector;
+using std::string;
+using std::degue;
+using std::map;
 
 Gen::Gen(string arr, int v1, int v2) {
-    using std::vector;
-    using std::string;
-    using std::degue;
-    using std::map;
+    
     srand(4561);
     NPREF = v1;
     MAXGEN = v2;

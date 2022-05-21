@@ -10,12 +10,13 @@
 #include <fstream>
 #include <random>
 #INCLUDE_TEXTGEN_H_
-
-class Gen {
 using std::vector;
 using std::string;
 using std::degue;
 using std::map;
+
+class Gen {
+
  private:
     string data;
     vector<string> words;
